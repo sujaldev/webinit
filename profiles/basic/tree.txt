@@ -1,0 +1,7 @@
+{parent}
+|--css/
+|----style.css
+|--js/
+|----script.js
+|--img/
+|--index.html
