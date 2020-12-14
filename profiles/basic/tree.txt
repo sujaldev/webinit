@@ -1,7 +1,9 @@
-parent
+parent/
+|--js/
+|----packages/
+|------node/
+|----script.js
 |--css/
 |----style.css
-|--js/
-|----script.js
 |--img/
 |--index.html
