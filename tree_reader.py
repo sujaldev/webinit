@@ -32,7 +32,7 @@ def item_name(item, full_name="n"):
         return item[:-1]
 
 
-def tree_structure(grandparent, parent_name, profile="basic"):
+def make_tree(grandparent, parent_name, profile="basic"):
     # initialize parent
     parent = Directory(grandparent, parent_name)
     directories = {'parent': parent}
@@ -62,4 +62,8 @@ def tree_structure(grandparent, parent_name, profile="basic"):
     return parent
 
 
-tree_structure("E:/NIVZER/Projects/", "parent").create_all()
+def get_files(parent_tree, file_list):
+    for file in list(parent_tree.files.values()):
+        file_list.append(file)
+    for directory in list(parent_tree.child_dirs.values()):
+        get_files(directory, file_list)
