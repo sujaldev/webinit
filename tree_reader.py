@@ -40,6 +40,7 @@ def item_name(item, full_name="n"):
 def make_tree(grandparent, parent_name, profile="basic"):
     # initialize parent
     parent = Directory(grandparent, parent_name)
+    parent.profile = profile
     directories = {'parent': parent}
 
     # get tree data
@@ -64,7 +65,6 @@ def make_tree(grandparent, parent_name, profile="basic"):
                     File(directories[current_parent], child_name, file_extension(child))
                 break
             j -= 1
-    parent.profile = profile
     return parent
 
 
