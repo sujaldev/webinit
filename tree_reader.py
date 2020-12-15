@@ -1,4 +1,8 @@
+import os
 from dir_data_structure import Directory, File
+
+
+profiles_path = "./profiles/"
 
 
 def is_dir(directory):
@@ -38,7 +42,7 @@ def make_tree(grandparent, parent_name, profile="basic"):
     directories = {'parent': parent}
 
     # get tree data
-    with open(f"../profiles/{profile}/tree.txt", "r") as tree_data:
+    with open(f"{profiles_path}{profile}/tree.txt", "r") as tree_data:
         tree_list = tree_data.read().split("\n")
 
     # read loop
@@ -59,11 +63,24 @@ def make_tree(grandparent, parent_name, profile="basic"):
                     File(directories[current_parent], child_name, file_extension(child))
                 break
             j -= 1
+    parent.profile = profile
     return parent
 
 
 def get_files(parent_tree, file_list):
     for file in list(parent_tree.files.values()):
-        file_list.append(file)
+        file_list.append(file.path)
     for directory in list(parent_tree.child_dirs.values()):
         get_files(directory, file_list)
+
+
+def enforce_template(parent_tree):
+    template_files = []
+    get_files(parent_tree, template_files)
+    for file in template_files:
+        template_path = file.replace(parent_tree.path, f"{profiles_path}{parent_tree.profile}")
+        if os.path.exists(template_path):
+            with open(template_path, 'r') as current_template:
+                template = current_template.read()
+            with open(file, 'w') as base:
+                base.write(template)

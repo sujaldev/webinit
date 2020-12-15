@@ -13,6 +13,7 @@ class Directory:
         else:
             self.parent = parent
         self.path = f"{self.parent}/{self.name}"
+        self.profile = "basic"
 
     def add_dir(self, dir_name):
         self.child_dirs[dir_name] = Directory(self, dir_name)
