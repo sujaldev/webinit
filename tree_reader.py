@@ -1,4 +1,5 @@
 import os
+import json
 from dir_data_structure import Directory, File
 
 
@@ -84,3 +85,28 @@ def enforce_template(parent_tree):
                 template = current_template.read()
             with open(file, 'w') as base:
                 base.write(template)
+
+
+def get_param(var_dict):
+    input_dict = {}
+    for each_file in var_dict.keys():
+        input_dict[each_file] = {}
+        for each_param in var_dict[each_file].keys():
+            input_dict[each_file][each_param] = input(f"Enter {each_param} : ")
+    return input_dict
+
+
+def enforce_variables(parent_tree):
+    var_path = f"{profiles_path}{parent_tree.profile}/var.json"
+    with open(var_path, 'r') as var_json:
+        parameters = json.load(var_json)
+    params = get_param(parameters)
+    for file in params.keys():
+        current_path = parent_tree.path + file
+        with open(current_path, 'r') as current_file:
+            current_data = current_file.read()
+        for param in params[file].keys():
+            if f"{{{param}}}" in current_data:
+                current_data = current_data.replace(f"{{{param}}}", params[file][param])
+        with open(current_path, 'w') as current_file:
+            current_file.write(current_data)
