@@ -10,9 +10,9 @@ def let_there_be_light(path: str, name: str, profile="basic"):
 
 
 parser = argparse.ArgumentParser(description="Make a project directory.")
-parser.add_argument('path', type=str, help='Specify path for project directory')
-parser.add_argument('name', type=str, help='Specify name for project directory')
-parser.add_argument('profile', type=str, help='Specify name for project directory')
+parser.add_argument('-p', '--path', 'path', type=str, help='Specify path for project directory')
+parser.add_argument('-name', '--name', 'name', type=str, help='Specify name for project directory')
+parser.add_argument('-P', '--profile', 'profile', type=str, help='Specify name for project directory')
 args = parser.parse_args()
 
 let_there_be_light(args.path, args.name, args.profile)
