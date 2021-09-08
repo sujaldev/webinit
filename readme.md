@@ -7,4 +7,4 @@ which are usually present in a similar project.
 You can create your own profiles, to create
 whatever file structure you want.
 
-_still working on this feature._
+_not working on this anymore_
